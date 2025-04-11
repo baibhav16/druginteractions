@@ -28,7 +28,7 @@ async function submitDrugs() {
   document.getElementById("loading").style.display = "block";
 
   try {
-    const response = await fetch("http://localhost:5000/analyze", {
+    const response = await fetch("https://drugback-ftne.onrender.com/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ drugs: drugInfoList })
