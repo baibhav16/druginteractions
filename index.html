@@ -2,115 +2,53 @@
 <html>
 <head>
   <title>DrugCheck</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { padding: 8px; margin: 5px; }
+    .section { border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 5px; }
+    .section h3 { margin-top: 0; }
+  </style>
   <link rel="stylesheet" href="style.css">
-    
 </head>
-<body class="px-4 py-6 md:px-8 lg:px-16">
-  <div class="width:100% mx-auto">
-    <!-- Header with theme toggle -->
-    <div class="flex items-center justify-between mb-8">
-      <h1 id="animatedHeading" class="text-4xl font-bold text-center">
-        <!-- Will be filled by JavaScript -->
-      </h1>
-      <button id="themeToggle" onclick="toggleDarkMode()" class="flex items-center justify-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 transition-colors">
-        <span id="themeIcon">🌓</span>
-      </button>
-    </div>
+<body>
+    <button onclick="toggleDarkMode()" style="float:right; font-size: 20px; width: 200px;">🌓Dark Mode</button>
 
-    <!-- Input section -->
-    <div class="card blue-glow p-6 mb-6">
-      <div class="grid md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label class="block mb-2 font-medium text-blue-800 dark:text-blue-300">Drug Name:</label>
-          <input type="text" id="drugName" placeholder="e.g., Aspirin" class="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-          <label class="block mb-2 font-medium text-blue-800 dark:text-blue-300">Dosage:</label>
-          <input type="text" id="drugDosage" placeholder="e.g., 75mg daily" class="w-full border border-blue-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3 justify-center">
-        <button onclick="addDrug()" class="btn-primary text-white font-medium px-6 py-3 rounded-lg">
-          Add Drug
-        </button>
-        <button onclick="submitDrugs()" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium px-6 py-3 rounded-lg transition-all hover:shadow-lg">
-          Analyze
-        </button>
-      </div>
-    </div>
+  <h1>DrugCheck</h1>
 
-    <!-- Drug list section -->
-    <div id="drugList" class="drug-list bg-blue-100 dark:bg-blue-900 dark:text-white p-4 rounded-lg mb-6 min-h-16 hidden"></div>
-    
-    <!-- Loading indicator -->
-    <div id="loading" class="hidden">
-      <div class="flex justify-center items-center p-4">
-        <div class="pulse flex items-center">
-          <div class="mr-3 h-4 w-4 rounded-full bg-blue-500"></div>
-          <div class="mr-3 h-4 w-4 rounded-full bg-blue-500" style="animation-delay: 0.2s"></div>
-          <div class="h-4 w-4 rounded-full bg-blue-500" style="animation-delay: 0.4s"></div>
-        </div>
-        <span class="ml-3 text-lg font-medium text-blue-800 dark:text-blue-200">Analyzing your medications...</span>
-      </div>
-    </div>
-
-    <!-- Results sections -->
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="card">
-        <div class="card-header-gradient p-3">
-          <h3 class="flex items-center text-xl font-bold">
-            <span class="section-icon">🧪</span> Interactions
-            <span id="interactions-icon" class="ml-auto"></span>
-          </h3>
-        </div>
-        <div class="p-4">
-          <pre id="interactions" class="font-sans text-base whitespace-pre-wrap"></pre>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-header-gradient p-3">
-          <h3 class="flex items-center text-xl font-bold">
-            <span class="section-icon">💊</span> Dosage Safety
-            <span id="dosage-icon" class="ml-auto"></span>
-          </h3>
-        </div>
-        <div class="p-4">
-          <pre id="dosage" class="font-sans text-base whitespace-pre-wrap"></pre>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-header-gradient p-3">
-          <h3 class="flex items-center text-xl font-bold">
-            <span class="section-icon">⚠</span> Clinical Warnings
-            <span id="warnings-icon" class="ml-auto"></span>
-          </h3>
-        </div>
-        <div class="p-4">
-          <pre id="warnings" class="font-sans text-base whitespace-pre-wrap"></pre>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-header-gradient p-3">
-          <h3 class="flex items-center text-xl font-bold">
-            <span class="section-icon">✅</span> Recommendations
-            <span id="recommendations-icon" class="ml-auto"></span>
-          </h3>
-        </div>
-        <div class="p-4">
-          <pre id="recommendations" class="font-sans text-base whitespace-pre-wrap"></pre>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Footer -->
-    <div class="mt-8 text-center text-sm text-blue-800 dark:text-blue-200">
-      <p>DrugCheck provides information for educational purposes only. Always consult with a healthcare professional.</p>
-    </div>
+  <div>
+    <label>Drug Name:</label>
+    <input type="text" id="drugName" placeholder="e.g., Aspirin">
+    <br>
+    <label>Dosage:</label>
+    <input type="text" id="drugDosage" placeholder="e.g., 75mg daily">
+    <br>
+    <button onclick="addDrug()">Add Drug</button>
+    <button onclick="submitDrugs()">Analyze</button>
   </div>
+
+  <div id="drugList"></div>
+  <div id="loading" style="display:none;">Analyzing...</div>
+
+  <div class="section">
+    <h3>🧪 Interactions <span id="interactions-icon"></span></h3>
+    <pre id="interactions"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>💊 Dosage Safety <span id="dosage-icon"></span></h3>
+    <pre id="dosage"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>⚠️ Clinical Warnings <span id="warnings-icon"></span></h3>
+    <pre id="warnings"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>✅ Recommendations <span id="recommendations-icon"></span></h3>
+    <pre id="recommendations"></pre>
+  </div>
+  
 
   <script src="index.js"></script>
 </body>
