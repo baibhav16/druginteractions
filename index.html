@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DrugCheck</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { padding: 8px; margin: 5px; }
+    .section { border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 5px; }
+    .section h3 { margin-top: 0; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button onclick="toggleDarkMode()" style="float:right; font-size: 20px; width: 200px;">🌓Dark Mode</button>
+
+  <h1>DrugCheck</h1>
+
+  <div>
+    <label>Drug Name:</label>
+    <input type="text" id="drugName" placeholder="e.g., Aspirin">
+    <br>
+    <label>Dosage:</label>
+    <input type="text" id="drugDosage" placeholder="e.g., 75mg daily">
+    <br>
+    <button onclick="addDrug()">Add Drug</button>
+    <button onclick="submitDrugs()">Analyze</button>
+  </div>
+
+  <div id="drugList"></div>
+  <div id="loading" style="display:none;">Analyzing...</div>
+
+  <div class="section">
+    <h3>🧪 Interactions <span id="interactions-icon"></span></h3>
+    <pre id="interactions"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>💊 Dosage Safety <span id="dosage-icon"></span></h3>
+    <pre id="dosage"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>⚠️ Clinical Warnings <span id="warnings-icon"></span></h3>
+    <pre id="warnings"></pre>
+  </div>
+  
+  <div class="section">
+    <h3>✅ Recommendations <span id="recommendations-icon"></span></h3>
+    <pre id="recommendations"></pre>
+  </div>
+  
+
+  <script src="index.js"></script>
+</body>
+</html>
